@@ -1,10 +1,9 @@
 import 'module-alias/register';
 import bootstrap from '@redStore/bootstrap';
-import { config } from 'dotenv';
+import Env from '@redStore/app/env';
 
-config();
-const port = +(process.env.PORT || 3000);
+const port = +(Env.getEnvironmentVariable('PORT') || 3000);
 
-bootstrap(port, (app) => {
+bootstrap(port, () => {
   console.log(`App is running on port ${port}`);
 });

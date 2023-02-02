@@ -1,4 +1,4 @@
-import {APP_TITLE} from '@redStore/app/constants/global';
+import {APP_TITLE} from '@redStore/constants/global';
 import type { Response, Request } from "express";
 
 class MainController {
