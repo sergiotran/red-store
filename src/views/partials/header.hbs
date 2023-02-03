@@ -8,9 +8,11 @@
     <button id="toggle-nav"><i class="fa-solid fa-bars"></i> Menu</button>
     <nav class="header-navigation">
       <ul class="nav">
-        <li class="nav-item"><a href="/" class="nav-link">Trang chủ</a></li>
-        <li class="nav-item"><a href="/gioi-thieu" class="nav-link">Giới thiệu</a></li>
-        <li class="nav-item"><a href="/san-pham" class="nav-link">Sản phẩm</a></li>
+        {{#if menu_items.length}}
+          {{#each menu_items}}
+            <li class="nav-item{{#if this.active}} active{{/if}}"><a href="{{this.href}}" class="nav-link">{{this.title}}</a></li>
+          {{/each}}
+        {{/if}}
         <li class="nav-item"><a href="/auth/login" class="nav-link">Đăng nhập</a></li>
         <li class="nav-item"><a href="/auth/register" class="nav-link">Đăng ký</a></li>
       </ul>

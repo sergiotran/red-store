@@ -1,11 +1,21 @@
 import {APP_TITLE} from '@redStore/constants/global';
+import { findAll } from '@redStore/services/product.service';
+import { getViewData } from '@redStore/utils/viewUtils';
 import type { Response, Request } from "express";
 
 class MainController {
-  homePage(req: Request, res: Response) {
-    res.render('home', {
-      title: APP_TITLE
-    });
+  async homePage(req: Request, res: Response) {
+    const products = await findAll();
+    res.render('home', getViewData({
+      title: APP_TITLE,
+      products
+    }, res));
+  }
+
+  aboutPage(req: Request, res: Response) {
+    res.render('about', getViewData({
+      title: "Giới thiệu"
+    }, res))
   }
 }
 
