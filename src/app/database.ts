@@ -1,6 +1,6 @@
 import { DataSource, DataSourceOptions, getConnectionManager } from 'typeorm';
 import Env from '@redStore/app/env';
-import { createDatabase, dropDatabase } from 'typeorm-extension';
+import { createDatabase, setDataSource } from 'typeorm-extension';
 
 const initDatabase = async () => {
   try {
@@ -12,7 +12,7 @@ const initDatabase = async () => {
       password: Env.getEnvironmentVariable('DATABASE_PASSWORD'),
       database: Env.getEnvironmentVariable('DATABASE_NAME'),
       entities: ['../**/*.model.{js,ts}'],
-      logging: true,
+      logging: false,
       synchronize: process.env.NODE_ENV !== 'production',
     } as DataSourceOptions;
 
@@ -22,6 +22,7 @@ const initDatabase = async () => {
     });
 
     const myDataSource = new DataSource(options);
+    setDataSource(myDataSource, 'source');
     return myDataSource;
   } catch (error) {
     throw error as Error;
