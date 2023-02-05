@@ -1,0 +1,43 @@
+<div class="panel">
+  <div class="panel-header">
+    <h2 class="panel-title">{{title}}</h2>
+    <div class="panel-actions">
+      <a href="#" class="panel-action-item">Thêm mới</a>
+      <form class="category-search-box" method="">
+        <input type="text" name="name" id="category_name" placeholder="Tìm kiếm theo tên...">
+        <button><i class="fa-solid fa-magnifying-glass"></i></button>
+      </form>
+    </div>
+  </div>
+  <div class="panel-content">
+    <table class="panel-table">
+      <thead>
+        <th style="white-space: nowrap;width: 150px">ID</th>
+        <th>Mã giảm giá</th>
+        <th>Số lượng sản phẩm tối thiểu</th>
+        <th>Giảm tối đa</th>
+        <th style="white-space: nowrap;width: 150px">Hành động</th>
+      </thead>
+      <tbody>
+        {{#if discounts.length}}
+          {{#each discounts}}
+            <tr>
+              <td>{{this.discount_id}}</td>
+              <td>{{this.discount_code}}</td>
+              <td>{{this.discount_min_order_val}}</td>
+              <td>{{this.discount_max_ammount}}</td>
+              <td>
+                <a class="item-action item-action-edit" data-id="{{this.category_id}}" href="/_/admin/category/{{this.category_id}}"><i class="fa-solid fa-pencil"></i></a>
+                <a class="item-action item-action-remove" data-id="{{this.category_id}}"><i class="fa-solid fa-trash"></i></a>
+              </td>
+            </tr>
+          {{/each}}
+          {{else}}
+          <tr>
+            <td colspan="5">Không có dữ liệu</td>
+          </tr>
+        {{/if}}
+      </tbody>
+    </table>
+  </div>
+</div>

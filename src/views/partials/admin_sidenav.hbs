@@ -1,0 +1,37 @@
+<aside class="admin-aside">
+  <header>
+    <h1 class="title">RedStore CMS</h1>
+  </header>
+  <nav class="navigation">
+    <ul class="nav">
+      {{#if menu_items.length}}
+          {{#each menu_items}}
+            <li class="nav-item{{#if this.active}} active{{/if}}{{#if this.children.length}} has-children{{/if}}">
+              <a
+                {{#if this.href}}
+                  href="{{this.href}}"
+                {{/if}}
+                class="nav-link"
+              >
+                {{this.title}}
+                {{#if this.children.length}}
+                  <i class="fa-solid fa-chevron-{{#if this.active}}up{{else}}down{{/if}}"></i>
+                {{/if}}
+              </a>
+              {{#if this.children.length}}
+                <ul class="nav sub-nav{{#if this.active}} is-show-nav{{/if}}">
+                  {{#each this.children}}
+                    <li class="nav-item{{#if this.active}} active{{/if}}">
+                      <a class="nav-link" {{#if this.href}}href="{{this.href}}"{{/if}}>
+                        {{this.title}}
+                      </a>
+                    </li>
+                  {{/each}}
+                </ul>
+              {{/if}}
+            </li>
+          {{/each}}
+        {{/if}}
+    </ul>
+  </nav>
+</aside>

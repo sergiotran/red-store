@@ -1,6 +1,8 @@
 <div class="categories">
   {{#if categories.length}}
-    Có chuyên mục
+    {{#each categories}}
+      <a href="#" class="category-item">{{this.category_name}}</a>
+    {{/each}}
     {{else}}
     <div class="category-empty">
       Không có chuyên mục nào trong hệ thống

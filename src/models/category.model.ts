@@ -1,5 +1,12 @@
-import { Entity, PrimaryGeneratedColumn, Column, OneToMany, JoinTable } from "typeorm";
-import Product from "./product.model";
+import {
+  Entity,
+  PrimaryGeneratedColumn,
+  Column,
+  OneToMany,
+  JoinTable,
+  JoinColumn
+} from 'typeorm';
+import Product from './product.model';
 
 @Entity({
   name: 'category'
@@ -9,7 +16,8 @@ class Category {
   category_id: number;
 
   @Column({
-    nullable: false
+    nullable: false,
+    unique: true
   })
   category_name: string;
 
@@ -20,8 +28,10 @@ class Category {
   category_description: string;
 
   @OneToMany(() => Product, (product) => product.product_category)
-  @JoinTable()
-  category_products: Product[]
+  @JoinTable({
+    name: 'category_products'
+  })
+  category_products: Product[];
 }
 
 export default Category;

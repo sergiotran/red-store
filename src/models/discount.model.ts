@@ -1,8 +1,16 @@
-import { Entity, PrimaryGeneratedColumn, Column, OneToMany, JoinTable, OneToOne, JoinColumn } from "typeorm";
+import {
+  Entity,
+  PrimaryGeneratedColumn,
+  Column,
+  OneToMany,
+  JoinTable,
+  OneToOne,
+  JoinColumn
+} from 'typeorm';
 import Product from '../models/product.model';
 
 @Entity({
-  name: 'category'
+  name: 'discount'
 })
 class Discount {
   @PrimaryGeneratedColumn()

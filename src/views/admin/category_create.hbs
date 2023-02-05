@@ -1,0 +1,21 @@
+<div class="panel">
+  <div class="panel-header">
+    <h2 class="panel-title">{{title}}</h2>
+    <div class="panel-actions">
+      <a href="/_/admin/category" class="panel-action-item">Quay lại</a>
+      <a href="#" class="panel-action-item">Lưu</a>
+    </div>
+  </div>
+  <div class="panel-content">
+    <form class="panel-form" method="post" action="/_/admin/category">
+      <div class="panel-form-group">
+        <label for="name">Tên chuyên mục</label>
+        <input id="name" name="category_name" type="text" placeholder="Tiêu để chuyên mục" class="panel-form-input" />
+      </div> 
+      <div class="panel-form-group">
+        <label for="description">Mô tả</label>
+        <textarea id="description" name="category_description" placeholder="Mô tả chuyên mục" class="panel-form-textarea"></textarea>
+      </div> 
+    </form>
+  </div>
+</div>

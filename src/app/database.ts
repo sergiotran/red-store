@@ -1,4 +1,4 @@
-import { DataSource, DataSourceOptions, getConnectionManager } from 'typeorm';
+import { DataSource, DataSourceOptions } from 'typeorm';
 import Env from '@redStore/app/env';
 import { createDatabase, setDataSource } from 'typeorm-extension';
 
@@ -13,7 +13,7 @@ const initDatabase = async () => {
       database: Env.getEnvironmentVariable('DATABASE_NAME'),
       entities: ['../**/*.model.{js,ts}'],
       logging: false,
-      synchronize: process.env.NODE_ENV !== 'production',
+      synchronize: process.env.NODE_ENV !== 'production'
     } as DataSourceOptions;
 
     await createDatabase({
@@ -27,6 +27,6 @@ const initDatabase = async () => {
   } catch (error) {
     throw error as Error;
   }
-}
+};
 
 export default initDatabase;

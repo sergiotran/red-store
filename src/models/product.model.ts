@@ -1,6 +1,14 @@
-import { Entity, PrimaryGeneratedColumn, Column, JoinColumn, OneToMany, JoinTable, ManyToOne, ManyToMany } from "typeorm";
-import Category from "./category.model";
-import Media from "./media.model";
+import {
+  Entity,
+  PrimaryGeneratedColumn,
+  Column,
+  JoinColumn,
+  OneToMany,
+  JoinTable,
+  ManyToOne,
+  ManyToMany
+} from 'typeorm';
+import Category from './category.model';
 
 @Entity({
   name: 'product'
@@ -10,7 +18,7 @@ class Product {
   product_id: number;
 
   @Column({
-    nullable: false,
+    nullable: false
   })
   product_name: string;
 
@@ -20,7 +28,7 @@ class Product {
   product_description: string;
 
   @Column({
-    nullable: false,
+    nullable: false
   })
   product_price: string;
 
@@ -29,10 +37,6 @@ class Product {
     name: 'product_category_id'
   })
   product_category: Category;
-
-  @ManyToMany(() => Media, (media) => media)
-  @JoinTable()
-  product_images: Media[];
 }
 
 export default Product;
