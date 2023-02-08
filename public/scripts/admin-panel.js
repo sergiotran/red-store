@@ -1,4 +1,5 @@
-document.addEventListener('DOMContentLoaded', (event) => {
+/* eslint-disable no-undef */
+document.addEventListener('DOMContentLoaded', () => {
   const itemActions = document.querySelectorAll(
     '.panel-action-item, .item-action'
   );
@@ -6,7 +7,7 @@ document.addEventListener('DOMContentLoaded', (event) => {
 
   itemActions.forEach((action) => {
     const actionDataset = action.dataset;
-    if (!!actionDataset['submitTarget']) {
+    if (actionDataset['submitTarget']) {
       const target = document.querySelector(actionDataset['submitTarget']);
       action.addEventListener('click', (event) => {
         event.preventDefault();
@@ -45,7 +46,7 @@ document.addEventListener('DOMContentLoaded', (event) => {
     }
   });
 
-  if (!!panelForm) {
+  if (panelForm) {
     const xhr = new XMLHttpRequest();
 
     const method = panelForm.getAttribute('method');
@@ -72,7 +73,8 @@ document.addEventListener('DOMContentLoaded', (event) => {
     });
 
     xhr.addEventListener('readystatechange', (state) => {
-      if (state.target.status === 200) {
+      console.log(state.target);
+      if (state.target.status >= 200) {
         window.location.replace(redirectUrl);
       }
     });

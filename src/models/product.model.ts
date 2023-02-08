@@ -3,10 +3,7 @@ import {
   PrimaryGeneratedColumn,
   Column,
   JoinColumn,
-  OneToMany,
-  JoinTable,
-  ManyToOne,
-  ManyToMany
+  ManyToOne
 } from 'typeorm';
 import Category from './category.model';
 
@@ -31,6 +28,16 @@ class Product {
     nullable: false
   })
   product_price: string;
+
+  @Column({
+    nullable: false
+  })
+  product_thumbnail: string;
+
+  @Column({
+    nullable: true
+  })
+  product_content: string;
 
   @ManyToOne(() => Category, (category) => category.category_products)
   @JoinColumn({

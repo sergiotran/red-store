@@ -3,7 +3,7 @@ import Category from '@redStore/models/category.model';
 import CreateCategoryDto from '@redStore/dtos/category/create-category.dto';
 import createError from 'http-errors';
 
-export const findAll = async (relation: boolean = false) => {
+export const findAll = async (relation = false) => {
   try {
     const dataSource = await useDataSource('source');
     const repository = await dataSource.getRepository(Category);
@@ -13,13 +13,16 @@ export const findAll = async (relation: boolean = false) => {
       }
     });
 
-    return data;
+    return {
+      status: 200,
+      data
+    };
   } catch (error) {
     throw error as Error;
   }
 };
 
-export const findOne = async (id: number, relation: boolean = false) => {
+export const findOne = async (id: number, relation = false) => {
   try {
     const dataSource = await useDataSource('source');
     const repository = await dataSource.getRepository(Category);
@@ -32,9 +35,16 @@ export const findOne = async (id: number, relation: boolean = false) => {
       }
     });
 
-    return data;
+    return {
+      status: 200,
+      data
+    };
   } catch (error) {
-    throw error as Error;
+    return {
+      status: 404,
+      message: 'Category not found',
+      data: null
+    };
   }
 };
 
@@ -50,9 +60,16 @@ export const create = async (dto: CreateCategoryDto) => {
       .values(dto)
       .execute();
 
-    return data;
+    return {
+      status: 201,
+      data
+    };
   } catch (error) {
-    return createError(400, error as Error);
+    return {
+      status: 400,
+      message: 'Something went wrong!',
+      data: null
+    };
   }
 };
 
@@ -68,9 +85,16 @@ export const update = async (id: number, dto: Partial<CreateCategoryDto>) => {
       .where('category_id = :id', { id })
       .execute();
 
-    return data;
+    return {
+      status: 200,
+      data
+    };
   } catch (error) {
-    return createError(400, error as Error);
+    return {
+      status: 400,
+      message: 'Something went wrong!',
+      data: null
+    };
   }
 };
 
@@ -85,8 +109,15 @@ export const remove = async (id: number) => {
       .where('category_id = :id', { id })
       .execute();
 
-    return data;
+    return {
+      status: 200,
+      data
+    };
   } catch (error) {
-    return createError(400, error as Error);
+    return {
+      status: 400,
+      message: 'Something went wrong!',
+      data: null
+    };
   }
 };

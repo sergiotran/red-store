@@ -1,0 +1,58 @@
+<div class='panel'>
+  <div class='panel-header'>
+    <h2 class='panel-title'>{{title}}</h2>
+    <div class='panel-actions'>
+      <a href='/_/admin/product/new' class='panel-action-item'>Thêm mới</a>
+      <form class='category-search-box' method=''>
+        <input
+          type='text'
+          name='name'
+          id='category_name'
+          placeholder='Tìm kiếm theo tên...'
+        />
+        <button><i class='fa-solid fa-magnifying-glass'></i></button>
+      </form>
+    </div>
+  </div>
+  <div class='panel-content'>
+    <table class='panel-table'>
+      <thead>
+        <th>ID</th>
+        <th>Thumbnail</th>
+        <th>Tên sản phẩm</th>
+        <th>Giá</th>
+        <th>Số lượng</th>
+        <th>Chuyên mục</th>
+        <th style='white-space: nowrap;width: 150px'>Hành động</th>
+      </thead>
+      <tbody>
+        {{#if products.length}}
+          {{#each products}}
+            <tr>
+              <td>{{this.product_id}}</td>
+              <td>{{this.product_thumbnail}}</td>
+              <td>{{this.product_name}}</td>
+              <td>{{this.product_price}}</td>
+              <td>{{this.product_category.category_name}}</td>
+              <td>
+                <a
+                  class='item-action item-action-edit'
+                  data-id='{{this.category_id}}'
+                  href='/_/admin/category/{{this.category_id}}'
+                ><i class='fa-solid fa-pencil'></i></a>
+                <a
+                  class='item-action item-action-remove'
+                  data-id='{{this.category_id}}'
+                ><i class='fa-solid fa-trash'></i></a>
+              </td>
+            </tr>
+          {{/each}}
+        {{else}}
+          <tr>
+            <td colspan='7'>Không có dữ liệu</td>
+          </tr>
+        {{/if}}
+      </tbody>
+    </table>
+  </div>
+</div>

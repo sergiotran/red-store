@@ -1,0 +1,48 @@
+{{#if category}}
+  <div class='panel'>
+    <div class='panel-header'>
+      <h2 class='panel-title'>{{title}}</h2>
+      <div class='panel-actions'>
+        <a
+          href='/_/admin/category'
+          class='panel-action-item important-action'
+        ><i class='fa-solid fa-arrow-left'></i> Quay lại</a>
+        <a class='panel-action-item' data-submit-target='#hidden-submit-btn'><i
+            class='fa-solid fa-floppy-disk'
+          ></i>
+          Cập nhật</a>
+      </div>
+    </div>
+    <div class='panel-content'>
+      <form
+        class='panel-form'
+        method='put'
+        action='/_/admin/category/{{category.category_id}}'
+        data-redirect='/_/admin/category'
+      >
+        <div class='panel-form-group'>
+          <label for='name'>Tên chuyên mục</label>
+          <input
+            id='name'
+            name='category_name'
+            type='text'
+            placeholder='Tiêu để chuyên mục'
+            value='{{category.category_name}}'
+            class='panel-form-input'
+          />
+        </div>
+        <div class='panel-form-group'>
+          <label for='description'>Mô tả</label>
+          <textarea
+            id='description'
+            name='category_description'
+            placeholder='Mô tả chuyên mục'
+            class='panel-form-textarea'
+          >{{category.category_description}}</textarea>
+        </div>
+        <input type='hidden' name='_method' value='patch' />
+        <input type='submit' id='hidden-submit-btn' style='display: none' />
+      </form>
+    </div>
+  </div>
+{{/if}}

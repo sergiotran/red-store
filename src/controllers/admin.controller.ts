@@ -1,7 +1,8 @@
+/* eslint-disable @typescript-eslint/no-empty-function */
 import { getViewData } from '@redStore/utils/viewUtils';
 import type { Response, Request } from 'express';
 import * as categoryService from '@redStore/services/category.service';
-import CreateCategoryDto from '@redStore/dtos/category/create-category.dto';
+import { removeVietnameseTones } from '@redStore/utils';
 
 class AdminController {
   dashboard(req: Request, res: Response) {
@@ -17,39 +18,53 @@ class AdminController {
     );
   }
 
-  /**
-   *
-   * Category module
-   */
-  async categories(req: Request, res: Response) {
-    const categories = await categoryService.findAll();
+  async listCategory(req: Request, res: Response) {
+    const { query } = req;
+    const data = await categoryService.findAll();
+
+    if (query.q) {
+      data.data = data.data.filter((category) => {
+        const queryString = removeVietnameseTones(query.q as string);
+        const isSearchWithId = !Number.isNaN(+queryString);
+        if (isSearchWithId) {
+          return category.category_id === +queryString;
+        }
+        return (
+          removeVietnameseTones(category.category_name)
+            .toLowerCase()
+            .indexOf(removeVietnameseTones(query.q as string).toLowerCase()) >
+            -1 || category.category_id === +(query.q as string)
+        );
+      });
+    }
 
     res.render(
-      'admin/category',
+      'admin/category/list',
       getViewData(
         {
           title: 'Quản lý chuyên mục',
-          categories,
+          categories: data.data || [],
+          searchQuery: query.q || '',
           layout: 'admin'
         },
         res
       )
     );
   }
-  async category(req: Request, res: Response) {
+  async categoryDetail(req: Request, res: Response) {
     const id = req.params.id;
-    const category = await categoryService.findOne(+id, true);
+    const { status, data } = await categoryService.findOne(+id, true);
 
-    if (!category) {
+    if (!data) {
       return res.redirect('/404');
     }
 
-    res.render(
-      'admin/category_detail',
+    res.status(status).render(
+      'admin/category/detail',
       getViewData(
         {
-          title: category!.category_name,
-          category,
+          title: `Chuyên mục: ${data.category_name}`,
+          category: data,
           layout: 'admin'
         },
         res
@@ -57,34 +72,23 @@ class AdminController {
     );
   }
   async createCategory(req: Request, res: Response) {
-    const { body } = req;
-    const data = await categoryService.create(body as CreateCategoryDto);
-
-    res.json(data);
-  }
-  async updateCategory(req: Request, res: Response) {
-    const { body, params } = req;
-    const id = params.id;
-    const data = await categoryService.update(
-      +id,
-      body as Partial<CreateCategoryDto>
+    res.render(
+      'admin/category/create',
+      getViewData(
+        {
+          title: 'Tạo mới chuyên mục',
+          layout: 'admin'
+        },
+        res
+      )
     );
-
-    res.json(data);
-  }
-  async removeCategory(req: Request, res: Response) {
-    const { params } = req;
-    const id = params.id;
-    const data = await categoryService.remove(+id);
-
-    res.json(data);
   }
 
   /**
    *
    * Discount module
    */
-  async discounts(req: Request, res: Response) {
+  async listDiscounts(req: Request, res: Response) {
     res.render(
       'admin/discount',
       getViewData(
@@ -96,18 +100,16 @@ class AdminController {
       )
     );
   }
-  async discount(req: Request, res: Response) {}
-  async updateDiscount(req: Request, res: Response) {}
-  async removeDiscount(req: Request, res: Response) {}
+  async discountDetail(req: Request, res: Response) {}
   async createDiscount(req: Request, res: Response) {}
 
   /**
    *
    * Product module
    */
-  async products(req: Request, res: Response) {
+  async listProducts(req: Request, res: Response) {
     res.render(
-      'admin/product',
+      'admin/product/list',
       getViewData(
         {
           title: 'Quản lý sản phẩm',
@@ -117,10 +119,19 @@ class AdminController {
       )
     );
   }
-  async product(req: Request, res: Response) {}
-  async createProduct(req: Request, res: Response) {}
-  async updateProduct(req: Request, res: Response) {}
-  async removeProduct(req: Request, res: Response) {}
+  async productDetail(req: Request, res: Response) {}
+  async createProduct(req: Request, res: Response) {
+    res.render(
+      'admin/product/create',
+      getViewData(
+        {
+          title: 'Tạo mới sản phẩm',
+          layout: 'admin'
+        },
+        res
+      )
+    );
+  }
 
   /**
    *
