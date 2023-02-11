@@ -22,7 +22,7 @@ export const findAll = async (relation = false) => {
   }
 };
 
-export const findOne = async (id: number, relation = false) => {
+export const findOneById = async (id: number, relation = false) => {
   try {
     const dataSource = await useDataSource('source');
     const repository = await dataSource.getRepository(Category);
@@ -48,29 +48,52 @@ export const findOne = async (id: number, relation = false) => {
   }
 };
 
-export const create = async (dto: CreateCategoryDto) => {
+export const findOneByField = async (field: keyof Category, value: unknown) => {
   try {
     const dataSource = await useDataSource('source');
     const repository = await dataSource.getRepository(Category);
-
-    const data = await repository
-      .createQueryBuilder()
-      .insert()
-      .into(Category)
-      .values(dto)
-      .execute();
+    const data = await repository.findOne({
+      where: {
+        [field]: value
+      }
+    });
 
     return {
-      status: 201,
+      status: 200,
       data
     };
   } catch (error) {
     return {
-      status: 400,
-      message: 'Something went wrong!',
+      status: 404,
+      message: 'Category not found',
       data: null
     };
   }
+};
+
+export const create = async (dto: CreateCategoryDto) => {
+  const dataSource = await useDataSource('source');
+  const repository = await dataSource.getRepository(Category);
+  const existData = await findOneByField('category_name', dto.category_name);
+  if (existData.data && existData.status === 200) {
+    return {
+      status: 400,
+      message: 'Chuyên mục đã tồn tại',
+      data: null
+    };
+  }
+
+  const data = await repository
+    .createQueryBuilder()
+    .insert()
+    .into(Category)
+    .values(dto)
+    .execute();
+
+  return {
+    status: 201,
+    data
+  };
 };
 
 export const update = async (id: number, dto: Partial<CreateCategoryDto>) => {

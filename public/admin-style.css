@@ -301,3 +301,49 @@ body {
   display: flex;
   justify-content: space-around;
 }
+
+.panel-image-uploader {
+  position: relative;
+  padding: 2rem;
+  background: #eee;
+  border: 2px dashed;
+  border-radius: 5px;
+  text-align: center;
+  cursor: pointer;
+  z-index: 1;
+}
+
+.panel-image-uploader .icon {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  font-size: 1.5rem;
+  gap: 1rem;
+  line-height: 1;
+  cursor: pointer;
+  flex-direction: row-reverse;
+}
+
+.panel-image-uploader .content {
+  display: none;
+}
+
+.panel-image-uploader .preview {
+  background: rgba(0, 0, 0, 0.025);
+  padding: 1rem;
+  border-radius: 5px;
+  margin-top: 1rem;
+  border: 1px solid rgba(0, 0, 0, 0.025);
+}
+
+.panel-image-uploader .preview:empty:after {
+  content: 'Chưa có file nào được chọn!';
+}
+
+.panel-image-uploader .icon label {
+  cursor: pointer;
+}
+
+.panel-image-uploader i {
+  font-size: 3rem;
+}

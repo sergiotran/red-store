@@ -10,6 +10,7 @@
     "ecmaVersion": "latest",
     "sourceType": "module"
   },
+  "ignorePatterns": ["public/**"],
   "plugins": ["@typescript-eslint"],
   "rules": {}
 }

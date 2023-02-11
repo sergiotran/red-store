@@ -17,25 +17,44 @@
       data-redirect='/_/admin/product'
     >
       <div class='panel-form-group'>
-        <label for='name'>Tên chuyên mục</label>
+        <label for="name">Tên sản phẩm</label>
         <input
           id='name'
-          name='category_name'
+          name='product_name'
           type='text'
           required
-          placeholder='Tiêu để chuyên mục'
-          value='{{category.category_name}}'
+          placeholder='Tên sản phẩm'
           class='panel-form-input'
         />
       </div>
       <div class='panel-form-group'>
-        <label for='description'>Mô tả</label>
+        <label for='description'>Mô tả sản phẩm</label>
         <textarea
           id='description'
-          name='category_description'
+          name='product_description'
           placeholder='Mô tả chuyên mục'
           class='panel-form-textarea'
-        >{{category.category_description}}</textarea>
+        ></textarea>
+      </div>
+      <div class='panel-form-group'>
+        <div class="panel-image-uploader">
+          <div class="icon">
+            <label for="img_uploader">Ảnh sản phẩm</label>
+            <i class="fa-solid fa-image"></i>
+          </div>
+          <div class="preview"></div>
+          <div class="content">
+            <input type="file" class="panel-image-uploader-input" id="img_uploader" />
+            <input
+              id='thumbnail'
+              name='product_thumbnail'
+              type='text'
+              required
+              placeholder='Tên sản phẩm'
+              class='panel-form-input'
+            />
+          </div>
+        </div>
       </div>
       <input type='hidden' name='_method' value='patch' />
       <input type='submit' id='hidden-submit-btn' style='display: none' />

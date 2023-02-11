@@ -1,4 +1,3 @@
-/* eslint-disable no-undef */
 document.addEventListener('DOMContentLoaded', () => {
   const itemActions = document.querySelectorAll(
     '.panel-action-item, .item-action'
@@ -25,8 +24,9 @@ document.addEventListener('DOMContentLoaded', () => {
         Swal.fire({
           title: 'Bạn có chắc muốn xóa nó không!',
           text: 'Bấm xóa ngay để thực hiện hành độngg này',
-          icon: 'info',
+          icon: 'question',
           confirmButtonText: 'Xóa ngay',
+          confirmButtonColor: '#23a791',
           denyButtonText: 'Tôi muốn đổi ý',
           allowOutsideClick: false,
           allowEscapeKey: false,
@@ -75,6 +75,20 @@ document.addEventListener('DOMContentLoaded', () => {
     xhr.addEventListener('readystatechange', (state) => {
       console.log(state.target);
       if (state.target.status >= 200) {
+        const data = JSON.parse(state.target.response);
+        if (data.message) {
+          Swal.fire({
+            title: 'Lỗi!',
+            text: data.message,
+            icon: 'error',
+            confirmButtonText: 'Tôi hiểu',
+            confirmButtonColor: 'Xóa ngay',
+            allowOutsideClick: false,
+            allowEscapeKey: false,
+            allowEnterKey: false
+          });
+          return;
+        }
         window.location.replace(redirectUrl);
       }
     });

@@ -24,11 +24,6 @@ class AdminController {
 
     if (query.q) {
       data.data = data.data.filter((category) => {
-        const queryString = removeVietnameseTones(query.q as string);
-        const isSearchWithId = !Number.isNaN(+queryString);
-        if (isSearchWithId) {
-          return category.category_id === +queryString;
-        }
         return (
           removeVietnameseTones(category.category_name)
             .toLowerCase()
@@ -53,7 +48,7 @@ class AdminController {
   }
   async categoryDetail(req: Request, res: Response) {
     const id = req.params.id;
-    const { status, data } = await categoryService.findOne(+id, true);
+    const { status, data } = await categoryService.findOneById(+id, true);
 
     if (!data) {
       return res.redirect('/404');

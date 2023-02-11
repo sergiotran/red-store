@@ -10,7 +10,7 @@ class CategoryAPIController {
 
   async findOne(req: Request, res: Response) {
     const id = req.params.id;
-    const data = await categoryService.findOne(+id, true);
+    const data = await categoryService.findOneById(+id, true);
     res.status(data.status).json(data);
   }
 

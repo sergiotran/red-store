@@ -6,6 +6,7 @@ import productRouter from './product.router';
 import userRouter from './user.router';
 import adminRouter from './admin.router';
 import apiRouter from './apis';
+import mediaRouter from './media.router';
 
 export default function rootRouter(app: Express) {
   // Define routes
@@ -14,5 +15,6 @@ export default function rootRouter(app: Express) {
   app.use('/user', userRouter);
   app.use('/_/admin/apis', apiRouter);
   app.use('/_/admin', adminRouter);
+  app.use('/media', mediaRouter);
   app.use('/', mainRouter);
 }
