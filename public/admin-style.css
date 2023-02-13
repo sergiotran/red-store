@@ -55,14 +55,13 @@ body {
 .main-content > .container {
   flex: 1;
   width: 100%;
+  height: calc(100% - 2rem);
 }
 
 .main-content > .container > .content {
   background-color: #fff;
   width: 100%;
   height: 100%;
-  overflow-x: hidden;
-  overflow-y: hidden;
   border-radius: 5px;
   padding: 1rem;
 }
@@ -217,6 +216,7 @@ body {
   padding: 1rem;
   border-radius: 5px;
   flex: 1;
+  overflow: auto;
 }
 
 .panel-table {
@@ -273,6 +273,17 @@ body {
   flex-direction: column;
 }
 
+.panel-form-row {
+  display: flex;
+  flex-direction: row;
+  gap: 1rem;
+  align-items: center;
+}
+
+.panel-form-row .expand {
+  flex: 1;
+}
+
 .panel-form {
   gap: 1rem;
 }
@@ -304,9 +315,9 @@ body {
 
 .panel-image-uploader {
   position: relative;
-  padding: 2rem;
+  padding: 1rem;
   background: #eee;
-  border: 2px dashed;
+  border: 2px dashed #ccc;
   border-radius: 5px;
   text-align: center;
   cursor: pointer;
@@ -321,6 +332,7 @@ body {
   gap: 1rem;
   line-height: 1;
   cursor: pointer;
+  color: #889;
   flex-direction: row-reverse;
 }
 
@@ -334,6 +346,24 @@ body {
   border-radius: 5px;
   margin-top: 1rem;
   border: 1px solid rgba(0, 0, 0, 0.025);
+  display: flex;
+  overflow: hidden;
+  height: 0;
+  padding-top: 56.25%;
+  position: relative;
+}
+
+.panel-image-uploader .preview img {
+  position: absolute;
+  inset: 0 0 0 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.panel-image-uploader .preview:empty {
+  height: auto;
+  padding: 1rem;
 }
 
 .panel-image-uploader .preview:empty:after {

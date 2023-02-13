@@ -17,7 +17,7 @@
       data-redirect='/_/admin/product'
     >
       <div class='panel-form-group'>
-        <label for="name">Tên sản phẩm</label>
+        <label for='name'>Tên sản phẩm</label>
         <input
           id='name'
           name='product_name'
@@ -27,34 +27,32 @@
           class='panel-form-input'
         />
       </div>
-      <div class='panel-form-group'>
-        <label for='description'>Mô tả sản phẩm</label>
-        <textarea
-          id='description'
-          name='product_description'
-          placeholder='Mô tả chuyên mục'
-          class='panel-form-textarea'
-        ></textarea>
+      <div class='panel-form-row'>
+        <div class='panel-form-group expand'>
+          <label for='description'>Mô tả sản phẩm</label>
+          <textarea
+            id='description'
+            name='product_description'
+            placeholder='Mô tả chuyên mục'
+            class='panel-form-textarea'
+          ></textarea>
+        </div>
+        <div class='panel-form-group'>
+          <div
+            class='panel-image-uploader'
+            data-title='Ảnh sản phẩm'
+            data-field-name='product_thumbnail'
+            data-multiple='false'
+          />
+        </div>
       </div>
       <div class='panel-form-group'>
-        <div class="panel-image-uploader">
-          <div class="icon">
-            <label for="img_uploader">Ảnh sản phẩm</label>
-            <i class="fa-solid fa-image"></i>
-          </div>
-          <div class="preview"></div>
-          <div class="content">
-            <input type="file" class="panel-image-uploader-input" id="img_uploader" />
-            <input
-              id='thumbnail'
-              name='product_thumbnail'
-              type='text'
-              required
-              placeholder='Tên sản phẩm'
-              class='panel-form-input'
-            />
-          </div>
-        </div>
+        <div
+          class='panel-select'
+          data-source='/apis/category/list'
+          data-field-name='product_category'
+          data-multiple='false'
+        />
       </div>
       <input type='hidden' name='_method' value='patch' />
       <input type='submit' id='hidden-submit-btn' style='display: none' />

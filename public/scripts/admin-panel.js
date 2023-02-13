@@ -69,7 +69,8 @@ document.addEventListener('DOMContentLoaded', () => {
           body[inputName] = inputValue;
         });
 
-      xhr.send(JSON.stringify(body));
+      console.log(body);
+      // xhr.send(JSON.stringify(body));
     });
 
     xhr.addEventListener('readystatechange', (state) => {
